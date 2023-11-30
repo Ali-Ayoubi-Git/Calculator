@@ -1,10 +1,14 @@
 package com.motsancalculator
 
+import android.nfc.Tag
+import android.util.Log
 import java.util.*
+import kotlin.math.log
 
 class Expression(var infixExpression: MutableList<String>) {
      private var postFix:String=""
     private fun infixToPostfix() {
+        Log.d( "infixToPostfixFunction", "infixExpression is : $infixExpression")
         var result = ""
         val stack = Stack<String>()
         for (elament in infixExpression) {
@@ -22,6 +26,7 @@ class Expression(var infixExpression: MutableList<String>) {
                 while (stack.isNotEmpty() && precedence(stack.peek()) >= precedence(elament)) {
                     result += "${stack.pop()} "
                 }
+                stack.push(elament)
 
             }
         }
@@ -29,6 +34,8 @@ class Expression(var infixExpression: MutableList<String>) {
             result += "${stack.pop()}"
         }
         postFix=result
+        Log.d( "infixToPostfixFunction", "infixExpression is : $result")
+
     }
 
     private fun precedence(operator: String): Int {

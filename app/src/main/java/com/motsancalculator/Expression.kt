@@ -3,7 +3,8 @@ package com.motsancalculator
 import java.util.*
 
 class Expression(var infixExpression: MutableList<String>) {
-    private fun infixToPostfix(): String {
+     private var postFix:String=""
+    private fun infixToPostfix() {
         var result = ""
         val stack = Stack<String>()
         for (elament in infixExpression) {
@@ -27,7 +28,7 @@ class Expression(var infixExpression: MutableList<String>) {
         while (stack.isNotEmpty()) {
             result += "${stack.pop()}"
         }
-        return result
+        postFix=result
     }
 
     private fun precedence(operator: String): Int {
@@ -37,7 +38,8 @@ class Expression(var infixExpression: MutableList<String>) {
             else -> -1
         }
     }
-    fun evaluateExpression(postFix: String): Number {
+    fun evaluateExpression(): Number {
+        infixToPostfix()
         val stack = Stack<Double>()
         var i = 0
         while (i < postFix.length) {

@@ -1,6 +1,9 @@
 package com.motsancalculator
 
 import android.os.Bundle
+import android.view.View
+import android.widget.Button
+import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,34 +16,30 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.motsancalculator.ui.theme.MotsanCalculatorTheme
 
 class MainActivity : ComponentActivity() {
+    private val input = mutableListOf<String>()
+    private var resultTexBox :TextView?=null
+    private var infixExpression:Expression?=null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            MotsanCalculatorTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
+        setContentView(R.layout.layout)
+        resultTexBox = findViewById(R.id.ResultTextBox)
+    }
+
+    fun onClick(button: View) {
+        val BottenText = (button as Button).text.toString()
+        when(BottenText){
+            "="->{
+                infixExpression=Expression((input))
+                resultTexBox?.text=infixExpression!!.evaluateExpression().toString()
                 }
+            else -> {
+                input.add(BottenText)
+                resultTexBox?.text="${resultTexBox?.text}${button.text}"
             }
+            }
+
         }
-    }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    MotsanCalculatorTheme {
-        Greeting("Android")
     }
-}

@@ -8,7 +8,6 @@ import kotlin.math.log
 class Expression(var infixExpression: MutableList<String>) {
      private var postFix:String=""
     private fun infixToPostfix() {
-        Log.d( "infixToPostfixFunction", "infixExpression is : $infixExpression")
         var result = ""
         val stack = Stack<String>()
         for (elament in infixExpression) {
@@ -34,13 +33,12 @@ class Expression(var infixExpression: MutableList<String>) {
             result += "${stack.pop()}"
         }
         postFix=result
-        Log.d( "infixToPostfixFunction", "infixExpression is : $result")
 
     }
 
     private fun precedence(operator: String): Int {
         return when (operator) {
-            "*", "/" -> 2
+            "X", "÷" -> 2
             "+", "-" -> 1
             else -> -1
         }
@@ -66,10 +64,10 @@ class Expression(var infixExpression: MutableList<String>) {
                 val x = stack.pop()
                 val y= stack.pop()
                 when(postFix[i]){
-                    '*'->stack.push(x*y)
-                    '/'->stack.push(x/y)
-                    '+'->stack.push(x+y)
-                    '-'->stack.push(x-y)
+                    'X'->stack.push(y * x)
+                    '÷'->stack.push(y / x)
+                    '+'->stack.push(y - x)
+                    '-'->stack.push(y - x)
                 }
             }
             i++

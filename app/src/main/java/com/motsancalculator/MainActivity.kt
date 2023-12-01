@@ -17,8 +17,8 @@ import com.motsancalculator.ui.theme.MotsanCalculatorTheme
 
 class MainActivity : ComponentActivity() {
     private val input = mutableListOf<String>()
-    private var resultTexBox :TextView?=null
-    private var infixExpression:Expression?=null
+    private var resultTexBox: TextView? = null
+    private var infixExpression: Expression? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,19 +27,45 @@ class MainActivity : ComponentActivity() {
     }
 
     fun onClick(button: View) {
-        val BottenText = (button as Button).text.toString()
-        when(BottenText){
-            "="->{
-                infixExpression=Expression((input))
-                resultTexBox?.text=infixExpression!!.evaluateExpression().toString()
-                }
+        val ButtonText = (button as Button).text.toString()
+        when (ButtonText) {
+            "=" -> {
+                infixExpression = Expression((input))
+                resultTexBox?.text = infixExpression!!.evaluateExpression().toString()
+            }
+
+            "CL" -> {
+                input.clear()
+                resultTexBox?.text = " "
+            }
+
+            "C" -> {
+                resultTexBox?.text = "${resultTexBox?.text}".dropLast((2))
+                input.remove(input.last())
+
+            }
+
             else -> {
-                input.add(BottenText)
-                resultTexBox?.text="${resultTexBox?.text}${button.text}"
-            }
-            }
+                if (Character.isDigit(ButtonText[0])) {
+                    if (input.isNotEmpty() && Character.isDigit(input.last()[0])) {
+                            input[input.lastIndex]= input.last() + ButtonText
+                        resultTexBox?.text = "${resultTexBox?.text}${button.text}"
 
+                    }
+                    else {
+                        input.add(ButtonText)
+                        resultTexBox?.text = "${resultTexBox?.text} ${button.text}"
+                    }
+                }
+
+                else {
+                    input.add(ButtonText)
+                    resultTexBox?.text = "${resultTexBox?.text} ${button.text}"
+
+                }
+
+            }
         }
-
-
     }
+}
+

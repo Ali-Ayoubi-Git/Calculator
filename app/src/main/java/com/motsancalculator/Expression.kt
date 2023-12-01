@@ -5,6 +5,7 @@ import android.util.Log
 import java.util.*
 import kotlin.math.log
 
+
 class Expression(var infixExpression: MutableList<String>) {
      private var postFix:String=""
     private fun infixToPostfix() {
@@ -43,11 +44,13 @@ class Expression(var infixExpression: MutableList<String>) {
             else -> -1
         }
     }
+
+
     fun evaluateExpression(): Number {
         infixToPostfix()
         val stack = Stack<Double>()
         var i = 0
-        while (i < postFix.length) {
+        while (i < postFix.length ) {
             if (postFix[i] == ' '){
                 i++
             continue
@@ -64,9 +67,9 @@ class Expression(var infixExpression: MutableList<String>) {
                 val x = stack.pop()
                 val y= stack.pop()
                 when(postFix[i]){
-                    'X'->stack.push(y * x)
+                    'X'->stack.push(x * y)
                     '÷'->stack.push(y / x)
-                    '+'->stack.push(y - x)
+                    '+'->stack.push(y + x)
                     '-'->stack.push(y - x)
                 }
             }

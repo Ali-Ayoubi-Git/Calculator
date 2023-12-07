@@ -1,13 +1,11 @@
 package com.motsancalculator
 
-import android.nfc.Tag
-import android.util.Log
+import java.lang.Math.pow
 import java.util.*
-import kotlin.math.log
 
 
 class Expression(var infixExpression: MutableList<String>) {
-     private var postFix:String=""
+    private var postFix: String = ""
     private fun infixToPostfix() {
         var result = ""
         val stack = Stack<String>()
@@ -33,14 +31,16 @@ class Expression(var infixExpression: MutableList<String>) {
         while (stack.isNotEmpty()) {
             result += "${stack.pop()}"
         }
-        postFix=result
+        postFix = result
 
     }
 
     private fun precedence(operator: String): Int {
         return when (operator) {
-            "X", "÷" -> 2
-            "+", "-" -> 1
+            "^" -> 4
+            "X", "÷" -> 3
+            "+", "-" -> 2
+            "%" -> 1
             else -> -1
         }
     }
@@ -49,32 +49,35 @@ class Expression(var infixExpression: MutableList<String>) {
     fun evaluateExpression(): Number {
         infixToPostfix()
         val stack = Stack<Double>()
+
         var i = 0
-        while (i < postFix.length ) {
-            if (postFix[i] == ' '){
+        while (i < postFix.length) {
+            if (postFix[i] == ' ') {
                 i++
-            continue
-            }
-            else if(Character.isDigit(postFix[i])){
+                continue
+            } else if (Character.isDigit(postFix[i])) {
                 var number = ""
-                while (Character.isDigit(postFix[i]) || postFix[i] == '.'){
-                   number+=postFix[i]
+                while (Character.isDigit(postFix[i]) || postFix[i] == '.') {
+                    number += postFix[i]
                     i++
                 }
                 stack.push(number.toDouble())
-            }
-            else {
+            } else {
                 val x = stack.pop()
-                val y= stack.pop()
-                when(postFix[i]){
-                    'X'->stack.push(x * y)
-                    '÷'->stack.push(y / x)
-                    '+'->stack.push(y + x)
-                    '-'->stack.push(y - x)
+                val y = stack.pop()
+                when (postFix[i]) {
+                    'X' -> stack.push(x * y)
+                    '÷' -> stack.push(y / x)
+                    '+' -> stack.push(y + x)
+                    '-' -> stack.push(y - x)
+                    '^' -> stack.push(pow(y, x))
+                    '%' -> stack.push((y/100) * x)
+
                 }
             }
             i++
         }
-        return if(stack.peek() / stack.peek().toInt() == 1.0) stack.peek().toInt() else stack.peek()
+        return if (stack.peek() / stack.peek().toInt() == 1.0) stack.peek()
+            .toInt() else stack.peek()
     }
 }

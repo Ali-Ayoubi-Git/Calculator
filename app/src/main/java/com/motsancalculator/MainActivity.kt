@@ -20,45 +20,52 @@ class MainActivity : ComponentActivity() {
     private var resultTexBox: TextView? = null
     private var infixExpression: Expression? = null
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout)
         resultTexBox = findViewById(R.id.ResultTextBox)
+
     }
 
     fun onClick(button: View) {
+
         val ButtonText = (button as Button).text.toString()
         when (ButtonText) {
             "=" -> {
                 infixExpression = Expression((input))
                 resultTexBox?.text = infixExpression!!.evaluateExpression().toString()
+                input.clear()
+                input.add(resultTexBox?.text.toString())
             }
 
             "CL" -> {
                 input.clear()
                 resultTexBox?.text = " "
+
+
             }
 
             "C" -> {
-                resultTexBox?.text = "${resultTexBox?.text}".dropLast((2))
-                input.remove(input.last())
+                resultTexBox?.text = "${resultTexBox?.text}".dropLast(1)
+                if (resultTexBox?.text?.isNotEmpty()!! && resultTexBox?.text?.last() == ' ') resultTexBox?.text =
+                    "${resultTexBox?.text}".dropLast(1)
 
+                if (input.last().length == 1) input.removeAt(input.lastIndex)
+                else input[input.lastIndex] = input.last().dropLast(1)
             }
 
             else -> {
-                if (Character.isDigit(ButtonText[0])) {
+                if (Character.isDigit(ButtonText[0]) || ButtonText[0] == '.') {
                     if (input.isNotEmpty() && Character.isDigit(input.last()[0])) {
-                            input[input.lastIndex]= input.last() + ButtonText
+                        input[input.lastIndex] = input.last() + ButtonText
                         resultTexBox?.text = "${resultTexBox?.text}${button.text}"
 
-                    }
-                    else {
+                    } else {
                         input.add(ButtonText)
                         resultTexBox?.text = "${resultTexBox?.text} ${button.text}"
                     }
-                }
-
-                else {
+                } else {
                     input.add(ButtonText)
                     resultTexBox?.text = "${resultTexBox?.text} ${button.text}"
 
@@ -67,5 +74,6 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
 }
 

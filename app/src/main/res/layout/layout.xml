@@ -88,17 +88,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="112dp"
             android:layout_marginEnd="16dp"
             android:clickable="false"
             android:minHeight="48dp"
             android:textColor="#ECE6E6"
             android:textSize="24dp"
-            app:layout_constraintBottom_toTopOf="@+id/Open"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.487" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView2"
@@ -186,37 +185,20 @@
 
         <Button
 
-            android:id="@+id/Colos"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:id="@+id/Parentheses"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginBottom="4dp"
             android:background="@drawable/rounndedbutton"
             android:onClick="onClick"
-            android:text=")"
+            android:text="( )"
             android:textColor="@color/OperatorColer"
-            android:textSize="32dp"
+            android:textSize="30dp"
             app:layout_constraintBottom_toTopOf="@+id/Divition"
             app:layout_constraintEnd_toEndOf="@+id/Divition"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.333"
             app:layout_constraintStart_toStartOf="@+id/Divition"
-            tools:ignore="MissingConstraints" />
-
-        <Button
-
-            android:id="@+id/Open"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="4dp"
-            android:background="@drawable/rounndedbutton"
-            android:onClick="onClick"
-            android:text="("
-            android:textColor="@color/OperatorColer"
-            android:textSize="32dp"
-            app:layout_constraintBottom_toTopOf="@+id/Divition"
-            app:layout_constraintEnd_toEndOf="@+id/Divition"
-            app:layout_constraintHorizontal_bias="0.826"
-            app:layout_constraintStart_toStartOf="parent"
             tools:ignore="MissingConstraints" />
 
         <Button
@@ -424,7 +406,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="20dp" />
+            app:layout_constraintGuide_begin="0dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

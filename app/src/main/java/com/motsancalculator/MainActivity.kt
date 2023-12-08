@@ -31,7 +31,25 @@ class MainActivity : ComponentActivity() {
     fun onClick(button: View) {
 
         val ButtonText = (button as Button).text.toString()
+
+
+
         when (ButtonText) {
+            "( )" -> {
+                val count1 = input.count { it == "(" }
+                val count2 = input.count { it == ")" }
+                    if (count1-count2 == 0) {
+                        input.add(ButtonText[0].toString())
+                        resultTexBox?.text = "${resultTexBox?.text}${ButtonText[0]}"
+                    }else if (count1-count2 == 1) {
+                        input.add(ButtonText[2].toString())
+                        resultTexBox?.text = "${resultTexBox?.text} ${ButtonText[2]}"
+
+                        }
+                    }
+
+
+
             "=" -> {
                 infixExpression = Expression((input))
                 resultTexBox?.text = infixExpression!!.evaluateExpression().toString()
